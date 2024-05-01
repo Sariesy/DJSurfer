@@ -1,2 +1,2 @@
-
 from djsurfer.lib_interface.text_object import TextObject
+from djsurfer.lib_interface.tsv_object import TsvObject
