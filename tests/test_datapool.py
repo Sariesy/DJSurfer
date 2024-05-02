@@ -35,38 +35,24 @@ def test_textobject(dir_data):
     obj = TextObject(path)
 
     assert isinstance(obj.dataframe, pd.DataFrame)
-
-def test_tsvobject(dir_data):
-    from djsurfer.lib_interface.tsv_object import TsvObject
-
-    path = Path(dir_data) / 'demo.tsv'
-    obj = TsvObject(path)
     
-    assert isinstance(obj.dataframe, pd.DataFrame)
-
 #%%   
 def test_datapool(dir_data):
     
     from djsurfer.datapool import DataPool
     from djsurfer.lib_interface.text_object import TextObject
-    from djsurfer.lib_interface.tsv_object import TsvObject
     
-    dp = DataPool(dir_data, interface=TextObject)    
-    assert len(dp.objs) == 2
-
-    dp = DataPool(dir_data, interface=TsvObject)    
-    assert len(dp.objs) == 1
-
+    dp = DataPool(dir_data, interface=TextObject)
+    
+    assert len(dp.objs) == 2  
 
 #%%
 def test_datainterface():
     
     from djsurfer.datainterface import DataInterface
     from djsurfer.lib_interface.text_object import TextObject
-    from djsurfer.lib_interface.tsv_object import TsvObject
     
     assert issubclass(TextObject, DataInterface)
-    assert issubclass(TsvObject, DataInterface)
     
 #%%
 
@@ -74,15 +60,12 @@ def test_datapool_get_signal(dir_data):
     
     from djsurfer.datapool import DataPool
     from djsurfer.lib_interface.text_object import TextObject
-    from djsurfer.lib_interface.tsv_object import TsvObject
     
-    dp = DataPool(dir_data, interface=TextObject)    
-    signal = dp.get_signal('col_5')    
+    dp = DataPool(dir_data, interface=TextObject)
+    
+    signal = dp.get_signal('col_5')
+    
     assert signal.shape == (100, 2)
-
-    dp = DataPool(dir_data, interface=TsvObject)    
-    signal = dp.get_signal('2020')    
-    assert signal.shape == (71, 1)
 
 #%%
     
